@@ -2,12 +2,13 @@ import './App.css';
 import foods from './foods.json';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Form, Button } from 'antd';
+import { Form, Button, Divider } from 'antd';
 import FoodList from './components/FoodList';
 import FoodCard from './components/FoodCard';
 import FoodBoxContainer from './components/FoodBoxContainer';
 import AddFoodForm from './components/AddFoodForm';
 import Search from './components/Search';
+import NoResults from './components/NoResults';
 
 
 function App() {
@@ -27,11 +28,18 @@ function App() {
     });
   };
   let searchedFoods = null;
+  const [noResults, setNoResults] = useState (false);
   useEffect(() => {
     if (searchedString !== "") {
-      setData(data.filter((food) => {
+      setNoResults(false);
+      let filteredData = data.filter((food) => {
         return food.name.toLowerCase().includes(searchedString.toLowerCase());
-      }));
+      });
+      if (filteredData.length >=1){
+        setData(filteredData);
+      } else {
+        setNoResults(true);
+      }      
     } else {
       setData(foods);
     }
@@ -66,13 +74,17 @@ function App() {
       {/*<FoodList />*/}
       {show 
         ? <AddFoodForm setShow= {setShow} onFinish={onFinish} form={form} layout={layout} validateMessages={validateMessages}/>
-        : <Button type="primary" onClick={() => setShow(true)}> Add Food </Button>
+        : <Button type="primary" className="add-food-btn" onClick={() => setShow(true)}> Add Food </Button>
       }
-      
+      <Divider>Search</Divider>
       <Search searchedFoods={searchedFoods} searchedString={searchedString} setSearchedString={setSearchedString} layout={layout}/>
-      
-      <FoodBoxContainer displayCards={displayCards} />
-      
+      {noResults
+        ? <NoResults />
+        : <>
+            <Divider>Food</Divider>
+            <FoodBoxContainer displayCards={displayCards} />
+          </>
+      }
     </div>
   ) 
 }

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input, InputNumber, Divider } from 'antd';
 
 const AddFoodForm = ({ onFinish, form, layout, validateMessages,setShow }) => {
   return (
     <>
+      <Divider>Add Food</Divider>
       <Form
         {...layout}
         form={form}
@@ -62,11 +63,14 @@ const AddFoodForm = ({ onFinish, form, layout, validateMessages,setShow }) => {
           <InputNumber />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" style={{marginRight : 20}}>
             Submit
           </Button>
-          <Button type="primary" onClick={() => setShow(false)}> Hide form </Button> 
+          <Button type="primary" ghost onClick={() => setShow(false)}>
+            Hide form 
+          </Button> 
         </Form.Item>
+        
       </Form>
     </>
   );
