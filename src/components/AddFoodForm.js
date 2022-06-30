@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, InputNumber } from 'antd';
 
-const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
+const AddFoodForm = ({ onFinish, form, layout, validateMessages,setShow }) => {
   return (
     <>
       <Form
@@ -65,6 +65,7 @@ const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
+          <Button type="primary" onClick={() => setShow(false)}> Hide form </Button> 
         </Form.Item>
       </Form>
     </>

@@ -1,8 +1,8 @@
 import './App.css';
 import foods from './foods.json';
 import React from 'react';
-import { useState } from 'react';
-import { Form } from 'antd';
+import { useState, useEffect } from 'react';
+import { Form, Button } from 'antd';
 import FoodList from './components/FoodList';
 import FoodCard from './components/FoodCard';
 import FoodBoxContainer from './components/FoodBoxContainer';
@@ -27,18 +27,19 @@ function App() {
     });
   };
   let searchedFoods = null;
-  if (searchedString !== "") {
-		searchedFoods = data.filter((food) => {
-			return food.name.toLowerCase().includes(searchedString.toLowerCase());
-		});
-    console.log(searchedFoods);
-    setData(searchedFoods);
-  } else {
-    searchedFoods = data;
-  }
+  useEffect(() => {
+    if (searchedString !== "") {
+      setData(data.filter((food) => {
+        return food.name.toLowerCase().includes(searchedString.toLowerCase());
+      }));
+    } else {
+      setData(foods);
+    }
+  }, [searchedString]);
   const handleDelete = (name) => {
     setData(data.filter((element) => element.name !== name));
   };
+  const [show, setShow] = useState (false);
   const [form] = Form.useForm();
   const onFinish = (values) => {
     let newData = [...data];
@@ -63,11 +64,13 @@ function App() {
   return (
     <div className="App">
       {/*<FoodList />*/}
-      <hr/>
-      <AddFoodForm onFinish={onFinish} form={form} layout={layout} validateMessages={validateMessages}/>
-      <hr/>
+      {show 
+        ? <AddFoodForm setShow= {setShow} onFinish={onFinish} form={form} layout={layout} validateMessages={validateMessages}/>
+        : <Button type="primary" onClick={() => setShow(true)}> Add Food </Button>
+      }
+      
       <Search searchedFoods={searchedFoods} searchedString={searchedString} setSearchedString={setSearchedString} layout={layout}/>
-      <hr/>
+      
       <FoodBoxContainer displayCards={displayCards} />
       
     </div>
