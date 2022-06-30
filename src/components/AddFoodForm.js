@@ -1,21 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, InputNumber } from 'antd';
 
-const AddFoodForm = ({ onFinish, form }) => {
-  const layout = {
-    labelCol: {
-      span: 8,
-    },
-    wrapperCol: {
-      span: 8,
-    },
-  };
-  const validateMessages = {
-    required: '${label} is required!',
-    number: {
-      range: '${label} must be between ${min} and ${max}',
-    },
-  };
+const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
   return (
     <>
       <Form
