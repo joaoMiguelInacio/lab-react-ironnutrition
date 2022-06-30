@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'antd';
 
-const FoodCard = ({name, image, calories, servings}) => {
+const FoodCard = ({name, image, calories, servings, handleDelete}) => {
     const totalCalories = calories * servings;
   return (
       <Card
@@ -14,7 +14,7 @@ const FoodCard = ({name, image, calories, servings}) => {
         <p>
           <b>Total Calories: {totalCalories}  </b> kcal
         </p>
-        <Button type="primary"> Delete </Button>
+        <Button type="primary" onClick={() => handleDelete(name)}> Delete </Button>
       </Card>
   )
 }

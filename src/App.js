@@ -7,10 +7,12 @@ import FoodList from './components/FoodList';
 import FoodCard from './components/FoodCard';
 import FoodBoxContainer from './components/FoodBoxContainer';
 import AddFoodForm from './components/AddFoodForm';
+import Search from './components/Search';
 
 
 function App() {
   const [data, setData] = useState(foods);
+  const [searchedString, setSearchedString] = useState("");
   const displayCards = () => {
     return data.map((element) => {
       return (
@@ -19,9 +21,23 @@ function App() {
           image={element.image}
           calories={element.calories}
           servings={element.servings}
+          handleDelete={handleDelete}
         />
       );
     });
+  };
+  let searchedFoods = null;
+  if (searchedString !== "") {
+		searchedFoods = data.filter((food) => {
+			return food.name.toLowerCase().includes(searchedString.toLowerCase());
+		});
+    console.log(searchedFoods);
+    setData(searchedFoods);
+  } else {
+    searchedFoods = data;
+  }
+  const handleDelete = (name) => {
+    setData(data.filter((element) => element.name !== name));
   };
   const [form] = Form.useForm();
   const onFinish = (values) => {
@@ -47,8 +63,13 @@ function App() {
   return (
     <div className="App">
       {/*<FoodList />*/}
-      <FoodBoxContainer displayCards={displayCards} />
+      <hr/>
       <AddFoodForm onFinish={onFinish} form={form} layout={layout} validateMessages={validateMessages}/>
+      <hr/>
+      <Search searchedFoods={searchedFoods} searchedString={searchedString} setSearchedString={setSearchedString} layout={layout}/>
+      <hr/>
+      <FoodBoxContainer displayCards={displayCards} />
+      
     </div>
   ) 
 }

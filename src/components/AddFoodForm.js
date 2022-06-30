@@ -12,7 +12,7 @@ const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={['name']}
+          name={'name'}
           label="Name"
           rules={[
             {
@@ -23,7 +23,7 @@ const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['image']}
+          name={'image'}
           label="Image"
           rules={[
             {
@@ -34,7 +34,7 @@ const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['calories']}
+          name={'calories'}
           label="Calories"
           rules={[
             {
@@ -48,7 +48,7 @@ const AddFoodForm = ({ onFinish, form, layout, validateMessages }) => {
           <InputNumber />
         </Form.Item>
         <Form.Item
-          name={['servings']}
+          name={'servings'}
           label="Servings"
           rules={[
             {
